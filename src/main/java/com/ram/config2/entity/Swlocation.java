@@ -1,8 +1,8 @@
 package com.ram.config2.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-import com.fasterxml.jackson.dataformat.xml.annotation.JacksonXmlProperty;
+
+
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,26 +16,21 @@ import java.util.List;
 @AllArgsConstructor
 @ToString
 @Entity
-@JsonPropertyOrder({"Type", "Value", "Description"})
+
 public class Swlocation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private Long swlocationId;
-
-    @JacksonXmlProperty(isAttribute = true, localName = "Type")
     private String type ;
-
-    @JacksonXmlProperty(isAttribute = true, localName = "Value")
     private String value ;
 
-    @JacksonXmlProperty(isAttribute = true, localName = "Description")
     private String description ;
 
-    @OneToMany(mappedBy = "swlocation")
+    @OneToMany(mappedBy = "swlocation", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<LoadableSW> loadableSWs;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "systemId")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Systeme systeme;
 }

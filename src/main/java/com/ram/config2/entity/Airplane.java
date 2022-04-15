@@ -21,6 +21,6 @@ public class Airplane {
 
     private String TailNumber;
 
-    @OneToMany(mappedBy = "airplane")
+    @OneToMany( mappedBy = "airplane",cascade = CascadeType.ALL,fetch = FetchType.EAGER)
     private List<Systeme> systemes;
 }
