@@ -20,8 +20,7 @@ public class LoadableSW {
     private String description ;
     private String partNumber ;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne()
     @JoinColumn(name = "swlocationId")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Swlocation swlocation;
 }

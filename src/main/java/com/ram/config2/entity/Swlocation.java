@@ -2,6 +2,7 @@ package com.ram.config2.entity;
 
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -26,11 +27,11 @@ public class Swlocation {
 
     private String description ;
 
-    @OneToMany(mappedBy = "swlocation", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "swlocation")
+    @JsonIgnore
     private List<LoadableSW> loadableSWs;
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne()
     @JoinColumn(name = "systemId")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Systeme systeme;
 }

@@ -12,7 +12,7 @@ import java.util.List;
 @RestController
 public class ControllerSystem {
 
-    RepoSystem repoSystem;
+    private RepoSystem repoSystem;
 
     @Autowired
     void ControllerSystem(RepoSystem repoSystem){

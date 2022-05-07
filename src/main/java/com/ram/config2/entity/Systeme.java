@@ -1,6 +1,7 @@
 package com.ram.config2.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,12 +23,11 @@ public class Systeme {
     private Long systemId;
     private String name ;
 
-    @OneToMany(mappedBy = "systeme", cascade = CascadeType.ALL,fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "systeme")
+    @JsonIgnore
     private List<Swlocation> swlocations;
 
-
+    @ManyToOne()
     @JoinColumn(name ="airpId")
-    @ManyToOne(fetch = FetchType.EAGER, optional = false)
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Airplane airplane;
 }
