@@ -60,7 +60,7 @@ public class DataController {
         return repoSwlocation.findSwlocationBySysteme_SystemId(id) ;
     }
 
-    @GetMapping(value = "/loadablesw/{id}")
+        @GetMapping(value = "/loadablesw/{id}")
     public List<LoadableSW> getLoadableSW(@PathVariable("id") Long id)  {
         return repoLoadableSW.findLoadableSWBySwlocation_SwlocationId(id) ;
     }
