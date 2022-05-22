@@ -14,8 +14,7 @@ import java.util.Set;
 @Entity
 @Table(	name = "users",
         uniqueConstraints = {
-                @UniqueConstraint(columnNames = "username"),
-                @UniqueConstraint(columnNames = "email")
+                @UniqueConstraint(columnNames = "username")
         })
 @Data
 @NoArgsConstructor
@@ -42,8 +41,10 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
-    public User(String username, String email, String password) {
+    public User(String username, String password, String firstName, String lastName) {
         this.username = username;
         this.password = password;
+        this.firstName= firstName ;
+        this.lastName = lastName;
     }
 }
