@@ -25,7 +25,6 @@ public class SignupRequest {
     @Size(max = 20)
     private String lastName;
 
-
     private Set<String> roles;
 
     @NotBlank
