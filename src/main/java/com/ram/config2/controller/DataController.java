@@ -1,15 +1,9 @@
 package com.ram.config2.controller;
 
-import com.ram.config2.entity.Airplane;
-import com.ram.config2.entity.LoadableSW;
-import com.ram.config2.entity.Swlocation;
-import com.ram.config2.entity.Systeme;
+import com.ram.config2.entity.*;
 import com.ram.config2.exception.SwlocationNotFoundException;
 import com.ram.config2.exception.SystemNotFoundException;
-import com.ram.config2.repository.RepoAirplan;
-import com.ram.config2.repository.RepoLoadableSW;
-import com.ram.config2.repository.RepoSwlocation;
-import com.ram.config2.repository.RepoSystem;
+import com.ram.config2.repository.*;
 import com.ram.config2.service.DataManageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +21,8 @@ public class DataController {
     private RepoSystem repoSystem ;
     private RepoSwlocation repoSwlocation ;
     private RepoLoadableSW repoLoadableSW ;
+    private DataManageService dataManageService;
+    private UserRepository userRepository;
 
 
 
@@ -35,23 +31,43 @@ public class DataController {
                RepoAirplan repoAirplan ,
                RepoSwlocation repoSwlocation ,
                RepoSystem repoSystem,
-               DataManageService dataManageService){
+               DataManageService dataManageService,
+                   UserRepository userRepository){
         this.repoAirplan = repoAirplan ;
         this.repoSwlocation = repoSwlocation ;
         this.repoSystem = repoSystem ;
         this.repoLoadableSW = repoLoadableSW ;
+        this.dataManageService = dataManageService;
+        this.userRepository = userRepository;
 
     }
 
     @GetMapping(value = "/airplan")
     public List<Airplane> getAllAirplan(){
-        return repoAirplan.findAll();
+        return this.repoAirplan.findAll();
+    }
+
+    @GetMapping(value = "/airplan/{id}")
+    public Airplane getAirplan(@PathVariable Long id){
+        return this.repoAirplan.findById(id).get();
+    }
+
+
+    @DeleteMapping(value = "/airplan/delete/{id}")
+    public void deleteAirplan(@PathVariable long id ){
+         this.dataManageService.deleteDataAirplan(id);
     }
 
     @GetMapping(value = "/system/{id}")
-    public List<Systeme> getSystem(@PathVariable("id") Long id){
+    public List<Systeme> getSystems(@PathVariable("id") Long id){
         return repoSystem.findSystemeByAirplane_AirpId(id);
     }
+
+    @GetMapping(value = "/systeme/{id}")
+    public Systeme getSystem(@PathVariable Long id){
+        return this.repoSystem.findById(id).get();
+    }
+
 
     @GetMapping(value = "/swlocation/{id}")
     public List<Swlocation> getSwlocation(@PathVariable("id") Long id)  {
@@ -61,5 +77,10 @@ public class DataController {
         @GetMapping(value = "/loadablesw/{id}")
     public List<LoadableSW> getLoadableSW(@PathVariable("id") Long id)  {
         return repoLoadableSW.findLoadableSWBySwlocation_SwlocationId(id) ;
+    }
+
+    @GetMapping(value = "/users")
+    public List<User> getUsers()  {
+        return this.userRepository.findAll() ;
     }
 }
