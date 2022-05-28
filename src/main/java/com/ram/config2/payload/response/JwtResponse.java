@@ -14,7 +14,7 @@ public class JwtResponse {
     private String type = "Bearer";
     private Long id;
     private String username;
-    private String fistName;
+    private String firstName;
     private String lastName;
     private List<String> roles;
 
@@ -22,7 +22,7 @@ public class JwtResponse {
         this.token = accessToken;
         this.id = id;
         this.username = username;
-        this.fistName = fistName ;
+        this.firstName = fistName ;
         this.lastName = lastName ;
         this.roles = roles;
     }

@@ -83,4 +83,9 @@ public class DataController {
     public List<User> getUsers()  {
         return this.userRepository.findAll() ;
     }
+
+    @DeleteMapping(value = "/user/{id}")
+    public void deleteUser(@PathVariable Long id)  {
+        this.userRepository.deleteById(id); ;
+    }
 }
